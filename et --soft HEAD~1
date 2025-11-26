@@ -1,0 +1,9 @@
+[33m8cd2d56[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m CustomerDB class updated: - Implemented IReadDb and IWriteDB methods: Create, Retrieve - Pending implementation: Delete, RetrieveAll, Update
+[33m9f6d3d7[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Updated Extensions
+[33m74bb671[m Implemented a test for ProductProps, Created a test for these methods: GetState, SetState, and Clone.
+[33m044cc48[m Implemented a test class for CustomerProps. Tested these methods: GetState, SetState and Clone. Each Method passed!
+[33m64f29ac[m Implemented ProductProps class with auto-implemented properties and IBaseProps methods (Clone, GetState, SetState)
+[33mabccf10[m Implemented CustomerProps class with auto-implemented properties and IBaseProps methods (Clone, GetState, SetState)
+[33m0a1a9a2[m Implemented CustomerProps class with auto-implemented properties and IBaseProps methods (Clone, GetState, SetState)
+[33m36b77c1[m Add project files.
+[33mb125f44[m Add .gitattributes, .gitignore, README.md, and LICENSE.txt.

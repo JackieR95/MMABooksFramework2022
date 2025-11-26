@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using MMABooksTools;
 using MySql.Data.MySqlClient;
+using DBDataReader = MySql.Data.MySqlClient.MySqlDataReader;
 
 namespace MMABooksProps
 {
@@ -70,7 +72,7 @@ namespace MMABooksProps
             this.City = (string)dr["City"];
             this.State = (string)dr["State"];
             this.ZipCode = (string)dr["ZipCode"];
-            this.ConcurrencyID = (int)dr["ConcurrencyID"];
+            this.ConcurrencyID = (Int32)dr["ConcurrencyID"];
         }
     }
 }
