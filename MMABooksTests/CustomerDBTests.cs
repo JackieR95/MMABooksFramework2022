@@ -36,4 +36,31 @@ public class CustomerDBTests
         Assert.AreEqual("Swenson, Vi", p.Name);
     }
 
+
+    /*
+    [Test]
+    public void TestUpdate()
+    {
+        CustomerProps p = (CustomerProps)db.Retrieve("");
+        p.Name = "Oregon";
+        Assert.True(db.Update(p));
+        p = (StateProps)db.Retrieve("OR");
+        Assert.AreEqual("Oregon", p.Name);
+    }
+    */
+
+    [Test]
+    public void TestCreate()
+    {
+        CustomerProps p = new CustomerProps();
+        p.Name = "Minnie Mouse";
+        p.Address = "101 Main St";
+        p.City = "Orlando";
+        p.State = "FL";
+        p.ZipCode = "10001";
+
+        db.Create(p);
+        CustomerProps p2 = (CustomerProps)db.Retrieve(p.CustomerID);
+        Assert.AreEqual(p.GetState(), p2.GetState());
+    }
 }
