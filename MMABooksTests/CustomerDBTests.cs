@@ -30,6 +30,7 @@ public class CustomerDBTests
     [Test]
     public void TestRetrieve()
     {
+        // Use CustomerID = 12 because Retrieve expects an int key, not a string
         CustomerProps p = (CustomerProps)db.Retrieve(12);
         Assert.AreEqual(12, p.CustomerID);
         Assert.AreEqual("Swenson, Vi", p.Name);
