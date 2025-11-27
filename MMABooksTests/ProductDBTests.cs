@@ -66,4 +66,12 @@ public class ProductDBTests
         Assert.AreEqual("JAVP", p.ProductCode);
         Assert.AreEqual("Murach's Java Programming", p.Description);
     }
+
+    [Test]
+    public void TestDelete()
+    {
+        ProductProps p = (ProductProps)db.Retrieve(testBookCode);
+        Assert.True(db.Delete(p));
+        Assert.Throws<Exception>(() => db.Retrieve(testBookCode));
+    }
 }
