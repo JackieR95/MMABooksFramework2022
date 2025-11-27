@@ -69,9 +69,43 @@ public class ProductDB : DBBase, IReadDB, IWriteDB
         }
     }
 
-    public bool Delete(IBaseProps props)
+    public bool Delete(IBaseProps p)
     {
-        throw new NotImplementedException();
+        ProductProps props = (ProductProps)p;
+        int rowsAffected = 0;
+
+        DBCommand command = new DBCommand();
+        command.CommandText = "usp_ProductDelete";
+        command.CommandType = CommandType.StoredProcedure;
+        command.Parameters.Add("prodCode", DBDbType.VarChar);
+        command.Parameters.Add("conCurrId", DBDbType.Int32);
+        command.Parameters["prodCode"].Value = props.ProductCode;
+        command.Parameters["conCurrId"].Value = props.ConcurrencyID;
+
+        try
+        {
+            rowsAffected = RunNonQueryProcedure(command);
+            if (rowsAffected == 1)
+            {
+                return true;
+            }
+            else
+            {
+                string message = "Record cannot be deleted. It has been edited by another user.";
+                throw new Exception(message);
+            }
+
+        }
+        catch (Exception e)
+        {
+            // log this exception
+            throw;
+        }
+        finally
+        {
+            if (mConnection.State == ConnectionState.Open)
+                mConnection.Close();
+        }
     }
 
     public IBaseProps Retrieve(object key)
