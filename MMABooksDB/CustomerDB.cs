@@ -45,8 +45,6 @@ namespace MMABooksDB;
             command.Parameters["city_p"].Value = props.City;
             command.Parameters["state_p"].Value = props.State;
             command.Parameters["zipcode_p"].Value = props.ZipCode;
-            command.Parameters["name_p"].Value = props.Name;
-
 
             try
           {
