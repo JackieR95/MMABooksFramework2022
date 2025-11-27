@@ -17,8 +17,8 @@ using DBDataReader = MySql.Data.MySqlClient.MySqlDataReader;
 using DBDataAdapter = MySql.Data.MySqlClient.MySqlDataAdapter;
 using DBDbType = MySql.Data.MySqlClient.MySqlDbType;
 
-namespace MMABooksDB
-{
+namespace MMABooksDB;
+
     public class CustomerDB : DBBase, IReadDB, IWriteDB
     {
 
@@ -154,7 +154,36 @@ namespace MMABooksDB
 
         public object RetrieveAll()
         {
-            throw new NotImplementedException();
+            List<CustomerProps> list = new List<CustomerProps>();
+            DBDataReader reader = null;
+            CustomerProps props;
+
+            try
+            {
+                reader = RunProcedure("usp_CustomerSelectAll");
+                if (!reader.IsClosed)
+                {
+                    while (reader.Read())
+                    {
+                        props = new CustomerProps();
+                        props.SetState(reader);
+                        list.Add(props);
+                    }
+                }
+                return list;
+            }
+            catch (Exception e)
+            {
+                // log this exception
+                throw;
+            }
+            finally
+            {
+                if (!reader.IsClosed)
+                {
+                    reader.Close();
+                }
+            }
         }
 
         public bool Update(IBaseProps p)
@@ -198,4 +227,4 @@ namespace MMABooksDB
             }
         }
     }
-}
+
