@@ -55,17 +55,17 @@ public class CustomerDBTests
     }
 
 
-    /*
+    
     [Test]
     public void TestUpdate()
     {
-        CustomerProps p = (CustomerProps)db.Retrieve("");
-        p.Name = "Oregon";
+        CustomerProps p = (CustomerProps)db.Retrieve(minnieId);
+        p.Name = "Mouse, Minnie";
         Assert.True(db.Update(p));
-        p = (StateProps)db.Retrieve("OR");
-        Assert.AreEqual("Oregon", p.Name);
+        p = (CustomerProps)db.Retrieve(minnieId);
+        Assert.AreEqual("Mouse, Minnie", p.Name);
     }
-    */
+    
 
     [Test]
     public void TestCreate()
