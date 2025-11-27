@@ -16,6 +16,7 @@ namespace MMABooksTests;
 public class CustomerDBTests
 {
     CustomerDB db;
+    int minnieId;
 
     [SetUp]
     public void ResetData()
@@ -26,6 +27,23 @@ public class CustomerDBTests
         command.CommandType = CommandType.StoredProcedure;
         db.RunNonQueryProcedure(command);
     }
+
+    [SetUp]
+    public void Setup()
+    {
+        // This runs before every test
+        CustomerProps p = new CustomerProps
+        {
+            Name = "Minnie Mouse",
+            Address = "101 Main St",
+            City = "Orlando",
+            State = "FL",
+            ZipCode = "10001"
+        };
+        db.Create(p);
+        minnieId = p.CustomerID; // store the ID for later tests
+    }
+
 
     [Test]
     public void TestRetrieve()
@@ -53,14 +71,23 @@ public class CustomerDBTests
     public void TestCreate()
     {
         CustomerProps p = new CustomerProps();
-        p.Name = "Minnie Mouse";
-        p.Address = "101 Main St";
+        p.Name = "Donald Duck";
+        p.Address = "105 Main St";
         p.City = "Orlando";
         p.State = "FL";
-        p.ZipCode = "10001";
+        p.ZipCode = "10002";
 
         db.Create(p);
         CustomerProps p2 = (CustomerProps)db.Retrieve(p.CustomerID);
         Assert.AreEqual(p.GetState(), p2.GetState());
     }
+
+    [Test]
+    public void TestDelete()
+    {
+        CustomerProps p = (CustomerProps)db.Retrieve(minnieId);
+        Assert.True(db.Delete(p));
+        Assert.Throws<Exception>(() => db.Retrieve(minnieId));
+    }
+
 }
