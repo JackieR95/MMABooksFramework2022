@@ -54,8 +54,15 @@ public class CustomerDBTests
         Assert.AreEqual("Swenson, Vi", p.Name);
     }
 
+    [Test]
+    public void TestRetrieveAll()
+    {
+        List<CustomerProps> list = (List<CustomerProps>)db.RetrieveAll();
+        Assert.AreEqual(697, list.Count);
+    }
 
-    
+
+
     [Test]
     public void TestUpdate()
     {
