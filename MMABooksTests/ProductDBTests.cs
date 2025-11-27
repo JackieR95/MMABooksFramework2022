@@ -17,8 +17,8 @@ namespace MMABooksTests;
 public class ProductDBTests
 {
     ProductDB db;
+    string testBookCode;
  
-
     [SetUp]
     public void ResetData()
     {
@@ -28,6 +28,36 @@ public class ProductDBTests
         command.CommandType = CommandType.StoredProcedure;
         db.RunNonQueryProcedure(command);
     }
+
+    [SetUp]
+    public void Setup()
+    {
+        // This runs before every test
+        ProductProps p = new ProductProps
+        {
+            ProductCode = "N6FS",
+            Description = "Murach's C# 2025",
+            UnitPrice = 38.0000m,
+            OnHandQuantity = 347,
+        };
+        db.Create(p);
+        testBookCode = p.ProductCode; // store the ID for later tests
+    }
+
+    [Test]
+    public void TestCreate()
+    {
+        ProductProps p = new ProductProps();
+        p.ProductCode = "DV3L";
+        p.Description = "Murach's SQL for MySQL";
+        p.UnitPrice = 25.5000m;
+        p.OnHandQuantity = 1443;
+
+        db.Create(p);
+        ProductProps p2 = (ProductProps)db.Retrieve(p.ProductCode);
+        Assert.AreEqual(p.GetState(), p2.GetState());
+    }
+
 
     [Test]
     public void TestRetrieve()
