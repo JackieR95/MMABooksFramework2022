@@ -68,6 +68,13 @@ public class ProductDBTests
     }
 
     [Test]
+    public void TestRetrieveAll()
+    {
+        List<ProductProps> list = (List<ProductProps>)db.RetrieveAll();
+        Assert.AreEqual(17, list.Count);
+    }
+
+    [Test]
     public void TestDelete()
     {
         ProductProps p = (ProductProps)db.Retrieve(testBookCode);
