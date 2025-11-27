@@ -1,13 +1,16 @@
-﻿using MMABooksProps;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+
+using MMABooksProps;
+using System;
 
 namespace MMABooksTests;
 
 [TestFixture]
 public class ProductPropsTests
 {
-    /*
+    
     ProductProps props;
+
     [SetUp]
     public void Setup()
     {
@@ -42,10 +45,9 @@ public class ProductPropsTests
     [Test]
     public void TestClone()
     {
-        CustomerProps newProps = (CustomerProps)props.Clone();
+        ProductProps newProps = (ProductProps)props.Clone();
         Assert.AreEqual(props.ProductID, newProps.ProductID);
         Assert.AreEqual(props.Description, newProps.Description);
         Assert.AreEqual(props.ConcurrencyID, newProps.ConcurrencyID);
-    }
-    */
+    }  
 }
