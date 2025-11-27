@@ -151,7 +151,36 @@ public class ProductDB : DBBase, IReadDB, IWriteDB
 
     public object RetrieveAll()
     {
-        throw new NotImplementedException();
+        List<ProductProps> list = new List<ProductProps>();
+        DBDataReader reader = null;
+        ProductProps props;
+
+        try
+        {
+            reader = RunProcedure("usp_ProductSelectAll");
+            if (!reader.IsClosed)
+            {
+                while (reader.Read())
+                {
+                    props = new ProductProps();
+                    props.SetState(reader);
+                    list.Add(props);
+                }
+            }
+            return list;
+        }
+        catch (Exception e)
+        {
+            // log this exception
+            throw;
+        }
+        finally
+        {
+            if (!reader.IsClosed)
+            {
+                reader.Close();
+            }
+        }
     }
 
     public bool Update(IBaseProps props)
