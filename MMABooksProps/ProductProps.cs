@@ -7,10 +7,11 @@ using DBDataReader = MySql.Data.MySqlClient.MySqlDataReader;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using MySql.Data.MySqlClient;
 
 namespace MMABooksProps
 {
-    /*
+
     public class ProductProps : IBaseProps
     {
 
@@ -73,5 +74,4 @@ namespace MMABooksProps
             this.ConcurrencyID = (int)dr["ConcurrencyID"];
         }
     }
-    */
 }
