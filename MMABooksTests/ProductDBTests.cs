@@ -17,7 +17,7 @@ namespace MMABooksTests;
 public class ProductDBTests
 {
     ProductDB db;
-    string testBookCode;
+    string testProdCode;
  
     [SetUp]
     public void ResetData()
@@ -41,21 +41,7 @@ public class ProductDBTests
             OnHandQuantity = 347,
         };
         db.Create(p);
-        testBookCode = p.ProductCode; // store the ID for later tests
-    }
-
-    [Test]
-    public void TestCreate()
-    {
-        ProductProps p = new ProductProps();
-        p.ProductCode = "DV3L";
-        p.Description = "Murach's SQL for MySQL";
-        p.UnitPrice = 25.5000m;
-        p.OnHandQuantity = 1443;
-
-        db.Create(p);
-        ProductProps p2 = (ProductProps)db.Retrieve(p.ProductCode);
-        Assert.AreEqual(p.GetState(), p2.GetState());
+        testProdCode = p.ProductCode; // store the ID for later tests
     }
 
 
@@ -75,10 +61,34 @@ public class ProductDBTests
     }
 
     [Test]
+    public void TestUpdate()
+    {
+        ProductProps p = (ProductProps)db.Retrieve(testProdCode);
+        p.Description = "Murach's C# 2025 Version 1";
+        Assert.True(db.Update(p));
+        p = (ProductProps)db.Retrieve(testProdCode);
+        Assert.AreEqual("Murach's C# 2025 Version 1", p.Description);
+    }
+
+    [Test]
+    public void TestCreate()
+    {
+        ProductProps p = new ProductProps();
+        p.ProductCode = "DV3L";
+        p.Description = "Murach's SQL for MySQL";
+        p.UnitPrice = 25.5000m;
+        p.OnHandQuantity = 1443;
+
+        db.Create(p);
+        ProductProps p2 = (ProductProps)db.Retrieve(p.ProductCode);
+        Assert.AreEqual(p.GetState(), p2.GetState());
+    }
+
+    [Test]
     public void TestDelete()
     {
-        ProductProps p = (ProductProps)db.Retrieve(testBookCode);
+        ProductProps p = (ProductProps)db.Retrieve(testProdCode);
         Assert.True(db.Delete(p));
-        Assert.Throws<Exception>(() => db.Retrieve(testBookCode));
+        Assert.Throws<Exception>(() => db.Retrieve(testProdCode));
     }
 }
