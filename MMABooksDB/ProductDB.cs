@@ -39,8 +39,8 @@ public class ProductDB : DBBase, IReadDB, IWriteDB
 
         command.CommandText = "usp_ProductSelect";
         command.CommandType = CommandType.StoredProcedure;
-        command.Parameters.Add("prodID", DBDbType.Int32);
-        command.Parameters["prodID"].Value = (int)key;
+        command.Parameters.Add("prodCode", DBDbType.VarChar);
+        command.Parameters["prodCode"].Value = (string)key;
 
         try
         {
