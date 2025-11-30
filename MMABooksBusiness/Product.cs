@@ -125,24 +125,50 @@ namespace MMABooksBusiness
             }
         }
 
+
         public override object GetList()
         {
-            throw new NotImplementedException();
+            List<Product> product = new List<Product>();
+            List<ProductProps> props = new List<ProductProps>();
+
+
+            props = (List<ProductProps>)mdbReadable.RetrieveAll();
+            foreach (ProductProps prop in props)
+            {
+                Product p = new Product(prop);
+                product.Add(p);
+            }
+
+            return product;
         }
 
+        // Defined properties in ProductProps, therefore this is left blank
         protected override void SetDefaultProperties()
         {
-            throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Sets required fields for a record.
+        /// </summary>
         protected override void SetRequiredRules()
         {
-            throw new NotImplementedException();
+            mRules.RuleBroken("ProductCode", true);
+            mRules.RuleBroken("Description", true);
+            mRules.RuleBroken("UnitPrice", true);
+            mRules.RuleBroken("OnHandQuantity", true);
         }
 
+        /// <summary>
+        /// Instantiates mProps and mOldProps as new Props objects.
+        /// Instantiates mbdReadable and mdbWriteable as new DB objects.
+        /// </summary>
         protected override void SetUp()
         {
-            throw new NotImplementedException();
+            mProps = new ProductProps();
+            mOldProps = new ProductProps();
+
+            mdbReadable = new ProductDB();
+            mdbWriteable = new ProductDB();
         }
 
         #region constructors
