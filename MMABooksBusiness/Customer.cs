@@ -151,22 +151,49 @@ namespace MMABooksBusiness
 
         public override object GetList()
         {
-            throw new NotImplementedException();
+            List<Customer> customer = new List<Customer>();
+            List<CustomerProps> props = new List<CustomerProps>();
+
+
+            props = (List<CustomerProps>)mdbReadable.RetrieveAll();
+            foreach (CustomerProps prop in props)
+            {
+                Customer c = new Customer(prop);
+                customer.Add(c);
+            }
+
+            return customer;
         }
 
+        // Defined properties in customer props, therefore this is left blank 
         protected override void SetDefaultProperties()
         {
-            throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Sets required fields for a record.
+        /// </summary>
         protected override void SetRequiredRules()
         {
-            throw new NotImplementedException();
+            mRules.RuleBroken("Name", true);
+            mRules.RuleBroken("Address", true);
+            mRules.RuleBroken("City", true);
+            mRules.RuleBroken("State", true);
+            mRules.RuleBroken("ZipCode", true);
         }
 
+
+        /// <summary>
+        /// Instantiates mProps and mOldProps as new Props objects.
+        /// Instantiates mbdReadable and mdbWriteable as new DB objects.
+        /// </summary>
         protected override void SetUp()
         {
-            throw new NotImplementedException();
+            mProps = new CustomerProps();
+            mOldProps = new CustomerProps();
+
+            mdbReadable = new CustomerDB();
+            mdbWriteable = new CustomerDB();
         }
 
         #region constructors
